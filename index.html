@@ -28,6 +28,10 @@
                     <a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">About</a>
                     <a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Contact</a>
                 </div>
+                <div class="hidden md:flex items-center space-x-4">
+                    <button id="login-nav-button" class="px-4 py-2 text-blue-600 hover:text-blue-700 transition duration-300">Login</button>
+                    <button id="signup-nav-button" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300">Sign Up</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -181,8 +185,11 @@
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-lg font-semibold mb-4">Contact Us</h4>
-                    <p class="text-gray-400">Phone: <a href="tel:0688085751" class="hover:text-white transition duration-300">0688085751</a></p>
+                    <h4 class="text-lg font-semibold mb-4">Contact me</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/craft.website?igsh=MTVrbm1pYmhxZHU3Zw==&utm" class="text-gray-400 hover:text-white transition duration-300">Instagram</a>
+                        <a href="https://wa.me/0688075751" class="text-gray-400 hover:text-white transition duration-300">WhatsApp</a>
+                    </div>
                 </div>
                 <div>
                     <h4 class="text-lg font-semibold mb-4">Copyright</h4>
@@ -191,6 +198,51 @@
             </div>
         </div>
     </footer>
+
+    <!-- Modals for Login, Signup, and Recovery -->
+    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-8 rounded-lg w-96">
+            <h2 class="text-2xl font-bold text-blue-600 mb-6">Login</h2>
+            <form id="login-form">
+                <input type="text" id="login-username" placeholder="Username" class="w-full p-2 mb-4 border rounded">
+                <input type="password" id="login-password" placeholder="Password" class="w-full p-2 mb-4 border rounded">
+                <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Login</button>
+            </form>
+            <div class="mt-4 text-center">
+                <a href="#" id="show-signup" class="text-blue-600 hover:underline">Create an account</a>
+                <span class="mx-2">|</span>
+                <a href="#" id="show-recovery" class="text-blue-600 hover:underline">Forgot password?</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="signup-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-8 rounded-lg w-96">
+            <h2 class="text-2xl font-bold text-blue-600 mb-6">Sign Up</h2>
+            <form id="signup-form">
+                <input type="text" id="signup-username" placeholder="Username" class="w-full p-2 mb-4 border rounded">
+                <input type="email" id="signup-email" placeholder="Email" class="w-full p-2 mb-4 border rounded">
+                <input type="password" id="signup-password" placeholder="Password" class="w-full p-2 mb-4 border rounded">
+                <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Sign Up</button>
+            </form>
+            <div class="mt-4 text-center">
+                <a href="#" id="show-login" class="text-blue-600 hover:underline">Already have an account? Login</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="recovery-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-8 rounded-lg w-96">
+            <h2 class="text-2xl font-bold text-blue-600 mb-6">Recover Account</h2>
+            <form id="recovery-form">
+                <input type="email" id="recovery-email" placeholder="Email" class="w-full p-2 mb-4 border rounded">
+                <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Send Recovery Link</button>
+            </form>
+            <div class="mt-4 text-center">
+                <a href="#" id="show-login-from-recovery" class="text-blue-600 hover:underline">Back to Login</a>
+            </div>
+        </div>
+    </div>
 
     <script>
         // PayPal Buttons Rendering
@@ -209,8 +261,27 @@
             }).render(`#${button.id}`);
         });
 
-        // Update Current Year in Footer
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-    </script>
-</body>
-</html>
+        // Modal Toggle Logic
+        const loginModal = document.getElementById('login-modal');
+        const signupModal = document.getElementById('signup-modal');
+        const recoveryModal = document.getElementById('recovery-modal');
+
+        const showLogin = () => {
+            loginModal.classList.remove('hidden');
+            signupModal.classList.add('hidden');
+            recoveryModal.classList.add('hidden');
+        };
+
+        const showSignup = () => {
+            signupModal.classList.remove('hidden');
+            loginModal.classList.add('hidden');
+            recoveryModal.classList.add('hidden');
+        };
+
+        const showRecovery = () => {
+            recoveryModal.classList.remove('hidden');
+            loginModal.classList.add('hidden');
+            signupModal.classList.add('hidden');
+        };
+
+        // Event Listeners
